@@ -1,0 +1,1666 @@
+@import "@fontsource-variable/overpass/wght.css";
+@import "./tokens.css";
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  background: var(--papel);
+  color: var(--tinta);
+  accent-color: var(--azul);
+  caret-color: var(--azul);
+  scrollbar-color: var(--borde-fuerte) var(--papel-2);
+}
+
+body {
+  margin: 0;
+  font-family: var(--letra);
+  font-size: var(--t-cuerpo);
+  line-height: 1.55;
+  font-optical-sizing: auto;
+  background: var(--papel);
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+p,
+ol,
+ul,
+figure {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1.5px;
+}
+
+::selection {
+  background: var(--azul);
+  color: var(--sobre-azul);
+}
+
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 3px;
+  border-radius: var(--radio);
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.solo-lector {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.envoltura {
+  width: min(100% - 2 * var(--margen), var(--ancho));
+  margin-inline: auto;
+}
+
+.icono {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+}
+
+/* ---------- Saltar al contenido ---------- */
+
+.saltar {
+  position: fixed;
+  top: var(--e-3);
+  left: var(--e-3);
+  z-index: var(--z-saltar);
+  padding: var(--e-3) var(--e-4);
+  background: var(--tinta);
+  color: var(--papel);
+  font-weight: 700;
+  border-radius: var(--radio);
+  translate: 0 -200%;
+  transition: translate var(--t-cambio) var(--ease-out);
+}
+
+.saltar:focus-visible {
+  translate: 0 0;
+}
+
+/* ---------- Botones y placas ---------- */
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-3);
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-2);
+  min-height: 3rem;
+  padding: 0 var(--e-5);
+  border: 2px solid transparent;
+  border-radius: var(--radio);
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  transition:
+    transform var(--t-presion) var(--ease-out),
+    background-color var(--t-presion) ease,
+    border-color var(--t-presion) ease,
+    color var(--t-presion) ease;
+}
+
+.boton:active {
+  transform: scale(0.97);
+}
+
+.boton--chico {
+  min-height: 2.75rem;
+  padding: 0 var(--e-4);
+  font-size: 0.9375rem;
+}
+
+.boton--primario {
+  background: var(--azul);
+  color: var(--sobre-azul);
+}
+
+.boton--secundario {
+  border-color: var(--tinta);
+  color: var(--tinta);
+}
+
+/* En la banda azul de contacto */
+.boton--claro {
+  background: var(--sobre-azul);
+  color: var(--azul-oscuro, var(--azul));
+}
+
+.boton--contorno {
+  border-color: currentColor;
+  color: inherit;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .boton--primario:hover {
+    background: color-mix(in srgb, var(--azul) 86%, var(--tinta));
+  }
+
+  .boton--secundario:hover {
+    background: var(--tinta);
+    color: var(--papel);
+  }
+
+  .boton--claro:hover {
+    background: color-mix(in srgb, var(--sobre-azul) 88%, var(--azul));
+  }
+
+  .boton--contorno:hover {
+    background: color-mix(in srgb, currentColor 14%, transparent);
+  }
+}
+
+.placa {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.625rem;
+  padding: 0.125rem 0.5rem 0;
+  border: 1.5px solid transparent;
+  border-radius: var(--radio);
+  font-size: var(--t-placa);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Placa del código de estación al lado del nombre, como en un letrero de estación. */
+.placa--grande {
+  min-height: 0.95em;
+  padding: 0.2em 0.3em 0.08em;
+  font-size: 0.8em;
+  letter-spacing: 0.01em;
+  vertical-align: 0.12em;
+}
+
+.placa--web {
+  background: var(--linea-web);
+  color: var(--sobre-azul);
+}
+
+.placa--escritorio {
+  background: var(--linea-escritorio);
+  color: var(--papel);
+}
+
+.placa--estado {
+  border-color: var(--borde-fuerte);
+  color: var(--tinta);
+}
+
+/* ---------- Cabecera ---------- */
+
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-cabecera);
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--cabecera);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid var(--borde);
+}
+
+.cabecera__fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-4);
+  min-height: 4rem;
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-3);
+  font-weight: 800;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.marca__placa {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding-top: 0.15em;
+  background: var(--tinta);
+  color: var(--papel);
+  border-radius: var(--radio);
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+}
+
+.nav__lista {
+  display: flex;
+  align-items: center;
+  gap: var(--e-1);
+}
+
+.nav__lista a:not(.boton) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  min-height: 2.75rem;
+  padding: 0.125rem var(--e-3) 0;
+  border-radius: var(--radio);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+
+.nav__idioma-corto {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav__lista a:not(.boton):hover {
+    background: var(--papel-2);
+  }
+}
+
+@media (max-width: 52rem) {
+  .nav__seccion {
+    display: none;
+  }
+}
+
+@media (max-width: 26rem) {
+  .marca__nombre {
+    display: none;
+  }
+
+  .nav__idioma-largo {
+    display: none;
+  }
+
+  .nav__idioma-corto {
+    display: inline;
+  }
+}
+
+/* ---------- Portada ---------- */
+
+.portada {
+  padding-top: clamp(2rem, 1rem + 4vw, 4rem);
+}
+
+.portada__intro {
+  display: grid;
+  gap: var(--e-5) var(--e-7);
+  align-items: end;
+}
+
+.portada__nombre {
+  font-size: var(--t-nombre);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+.portada__lado {
+  display: grid;
+  gap: var(--e-5);
+}
+
+.portada__entrada {
+  max-width: 34ch;
+  font-size: var(--t-entrada);
+  line-height: 1.45;
+  color: var(--tinta-2);
+}
+
+@media (min-width: 60rem) {
+  .portada__intro {
+    grid-template-columns: 1.35fr 1fr;
+  }
+
+  .portada__nombre {
+    max-width: 8ch;
+  }
+}
+
+/* ---------- Mapa de líneas ---------- */
+
+.proyectos {
+  padding-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.mapa {
+  --fila: 7.25rem;
+  --y: 2.75rem;
+  --punto: 1.625rem;
+  --origen: 4rem;
+  --g: var(--grosor-linea);
+}
+
+.mapa__cabeza {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--e-1) var(--e-4);
+  padding-bottom: var(--e-5);
+  border-bottom: 1px solid var(--borde);
+}
+
+.mapa__titulo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.mapa__ayuda {
+  color: var(--tinta-2);
+  font-size: var(--t-chico);
+}
+
+/* Leyenda de las dos líneas, como en el borde de un mapa de transporte. */
+.mapa__leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-2) var(--e-5);
+  margin-left: auto;
+  font-size: var(--t-chico);
+  font-weight: 600;
+  color: var(--tinta-2);
+}
+
+.mapa__leyenda li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+}
+
+.mapa__red {
+  position: relative;
+  margin-top: var(--e-5);
+}
+
+/* Posiciones del mapa. La CSP (style-src 'self') bloquea los atributos style,
+   así que plantilla.js las escribe como data-* y aquí se vuelven variables.
+   Alcanza para líneas de hasta 12 estaciones. */
+[data-col="1"] { --col: 1; }
+[data-col="2"] { --col: 2; }
+[data-col="3"] { --col: 3; }
+[data-col="4"] { --col: 4; }
+[data-col="5"] { --col: 5; }
+[data-col="6"] { --col: 6; }
+[data-col="7"] { --col: 7; }
+[data-col="8"] { --col: 8; }
+[data-col="9"] { --col: 9; }
+[data-col="10"] { --col: 10; }
+[data-col="11"] { --col: 11; }
+[data-col="12"] { --col: 12; }
+[data-n="4"] { --n: 4; }
+[data-n="5"] { --n: 5; }
+[data-n="6"] { --n: 6; }
+[data-n="7"] { --n: 7; }
+[data-n="8"] { --n: 8; }
+[data-n="9"] { --n: 9; }
+[data-n="10"] { --n: 10; }
+[data-n="11"] { --n: 11; }
+[data-n="12"] { --n: 12; }
+[data-fin-web="1"] { --fin-web: 1; }
+[data-fin-web="2"] { --fin-web: 2; }
+[data-fin-web="3"] { --fin-web: 3; }
+[data-fin-web="4"] { --fin-web: 4; }
+[data-fin-web="5"] { --fin-web: 5; }
+[data-fin-web="6"] { --fin-web: 6; }
+[data-fin-web="7"] { --fin-web: 7; }
+[data-fin-web="8"] { --fin-web: 8; }
+[data-fin-web="9"] { --fin-web: 9; }
+[data-fin-web="10"] { --fin-web: 10; }
+[data-fin-web="11"] { --fin-web: 11; }
+[data-fin-web="12"] { --fin-web: 12; }
+[data-fin-escritorio="2"] { --fin-escritorio: 2; }
+[data-fin-escritorio="3"] { --fin-escritorio: 3; }
+[data-fin-escritorio="4"] { --fin-escritorio: 4; }
+[data-fin-escritorio="5"] { --fin-escritorio: 5; }
+[data-fin-escritorio="6"] { --fin-escritorio: 6; }
+[data-fin-escritorio="7"] { --fin-escritorio: 7; }
+[data-fin-escritorio="8"] { --fin-escritorio: 8; }
+[data-fin-escritorio="9"] { --fin-escritorio: 9; }
+[data-fin-escritorio="10"] { --fin-escritorio: 10; }
+[data-fin-escritorio="11"] { --fin-escritorio: 11; }
+[data-fin-escritorio="12"] { --fin-escritorio: 12; }
+
+.mapa__linea {
+  position: relative;
+}
+
+/* En pantallas anchas la leyenda nombra las líneas; en celular cada línea lleva su rótulo. */
+.mapa__rotulo {
+  display: none;
+}
+
+@media (min-width: 56rem) {
+  .mapa__ramal {
+    display: contents;
+  }
+}
+
+.estacion {
+  position: relative;
+}
+
+.estacion__enlace {
+  position: relative;
+  display: block;
+  height: var(--fila);
+  text-decoration: none;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  border-radius: var(--radio);
+}
+
+.estacion__codigo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% 0;
+  /* Cada código es una placa: con borde del color de su línea, y llena cuando se elige. */
+  padding: 0.2rem 0.375rem 0.05rem;
+  border: 1.5px solid var(--color-linea);
+  border-radius: var(--radio);
+  background: var(--papel);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  color: var(--tinta);
+  transition:
+    background-color var(--t-cambio) ease,
+    color var(--t-cambio) ease;
+}
+
+.estacion__punto {
+  position: absolute;
+  top: calc(var(--y) - var(--punto) / 2);
+  left: 50%;
+  width: var(--punto);
+  height: var(--punto);
+  margin-left: calc(var(--punto) / -2);
+  border-radius: 50%;
+  background: var(--papel);
+  border: 5px solid var(--color-linea);
+  transition:
+    transform var(--t-cambio) var(--ease-out),
+    background-color var(--t-cambio) ease;
+}
+
+.estacion__nombre {
+  position: absolute;
+  top: calc(var(--y) + var(--punto) / 2 + 0.5rem);
+  left: 50%;
+  translate: -50% 0;
+  width: max-content;
+  max-width: min(9rem, 100%);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  text-align: center;
+  /* Dos líneas como máximo: el nombre completo está en el andén y en el title. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.mapa__linea--web {
+  --color-linea: var(--linea-web);
+}
+
+.mapa__linea--escritorio {
+  --color-linea: var(--linea-escritorio);
+}
+
+/* Estación elegida: el punto se llena con el color de su línea y el código se vuelve placa. */
+.estacion__enlace[aria-current="true"] .estacion__punto {
+  background: var(--color-linea);
+  transform: scale(1.18);
+}
+
+.estacion__enlace[aria-current="true"] .estacion__codigo {
+  background: var(--color-linea);
+  color: var(--papel);
+}
+
+.mapa__linea--web .estacion__enlace[aria-current="true"] .estacion__codigo {
+  color: var(--sobre-azul);
+}
+
+.estacion__enlace:active .estacion__punto {
+  transform: scale(0.94);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .estacion__enlace:hover .estacion__punto {
+    transform: scale(1.18);
+  }
+
+  .estacion__enlace:hover .estacion__nombre {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.2em;
+  }
+}
+
+/* Mapa en pantallas anchas: dos líneas que salen del mismo origen.
+   La Web sigue derecho; la de Escritorio baja en diagonal de 45° y sigue debajo. */
+@media (min-width: 56rem) {
+  .mapa__red {
+    display: grid;
+    grid-template-columns: var(--origen) repeat(var(--n, 6), minmax(0, 1fr));
+    grid-template-rows: var(--fila) var(--fila);
+  }
+
+  /* Cada línea ocupa su fila y reparte sus estaciones en las columnas del mapa. */
+  .mapa__linea {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
+
+  .mapa__linea--web {
+    grid-row: 1;
+  }
+
+  .mapa__linea--escritorio {
+    grid-row: 2;
+  }
+
+  .estacion {
+    grid-column: calc(var(--col) + 1);
+  }
+
+  .mapa__origen {
+    position: absolute;
+    top: calc(var(--y) - 0.875rem);
+    left: calc(var(--origen) / 2 - 0.875rem);
+    z-index: 1;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--papel);
+    border: 5px solid var(--tinta);
+  }
+
+  .mapa__trazo {
+    position: absolute;
+    top: calc(var(--y) - var(--g) / 2);
+    left: calc(var(--origen) / 2);
+    height: var(--g);
+    border-radius: var(--g);
+    transform-origin: left center;
+  }
+
+  /* Cada trazo termina en el centro de la última estación de su línea. */
+  .mapa__trazo--web {
+    width: calc(var(--origen) / 2 + (100% - var(--origen)) * (var(--fin-web) - 0.5) / var(--n));
+    background: var(--linea-web);
+  }
+
+  .mapa__trazo--diagonal {
+    width: calc(var(--fila) * 1.41421);
+    background: var(--linea-escritorio);
+    rotate: 45deg;
+  }
+
+  .mapa__trazo--escritorio {
+    top: calc(var(--fila) + var(--y) - var(--g) / 2);
+    left: calc(var(--origen) / 2 + var(--fila) - var(--g) / 2);
+    width: calc(
+      var(--origen) / 2 + (100% - var(--origen)) * (var(--fin-escritorio) - 0.5) / var(--n) - var(--fila) + var(--g) / 2
+    );
+    background: var(--linea-escritorio);
+  }
+
+  /* El recorrido: con JavaScript, la línea base se aclara y el tramo hasta la estación
+     elegida queda en color pleno. */
+  .mapa__recorrido {
+    display: none;
+  }
+
+  .js .mapa__recorrido {
+    display: block;
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    filter: none;
+    transform-origin: left center;
+    scale: 0 1;
+    transition: scale var(--t-viaje) var(--ease-in-out);
+  }
+
+  .js .mapa__trazo {
+    background: color-mix(in srgb, var(--color-trazo) 34%, var(--papel));
+  }
+
+  .js .mapa__trazo--web {
+    --color-trazo: var(--linea-web);
+  }
+
+  .js .mapa__trazo--diagonal,
+  .js .mapa__trazo--escritorio {
+    --color-trazo: var(--linea-escritorio);
+  }
+
+  .js .mapa__recorrido {
+    background: var(--color-trazo);
+  }
+
+  .mapa--teclado .mapa__recorrido {
+    transition: none;
+  }
+
+  /* El trazo se dibuja una vez al cargar. */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .mapa__trazo {
+      animation: trazar var(--t-trazo) var(--ease-out) both;
+    }
+
+    .js .mapa__trazo--diagonal {
+      animation-delay: 160ms;
+      animation-duration: 260ms;
+    }
+
+    .js .mapa__trazo--escritorio {
+      animation-delay: 400ms;
+      animation-duration: 520ms;
+    }
+
+    .js .estacion {
+      animation: aparecer 360ms var(--ease-out) both;
+      animation-delay: calc(120ms + var(--col) * 70ms);
+    }
+
+    .js .mapa__linea--escritorio .estacion {
+      animation-delay: calc(440ms + var(--col) * 70ms);
+    }
+  }
+}
+
+@keyframes trazar {
+  from {
+    scale: 0 1;
+  }
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+
+/* Mapa en celular: una sola franja que se desliza de lado, con las dos líneas seguidas. */
+@media (max-width: 55.99rem) {
+  .mapa {
+    --fila: 6.75rem;
+    --punto: 1.5rem;
+    --ancho-estacion: 7rem;
+  }
+
+  .mapa__origen,
+  .mapa__trazo {
+    display: none;
+  }
+
+  .mapa__red {
+    display: flex;
+    gap: var(--e-5);
+    margin-inline: calc(var(--margen) * -1);
+    padding-inline: var(--margen);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--margen);
+    scrollbar-width: none;
+    mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+  }
+
+  .mapa__red::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mapa__leyenda {
+    display: none;
+  }
+
+  /* Cada línea arranca con su rótulo, así se lee dónde termina una y empieza la otra. */
+  .mapa__ramal {
+    display: flex;
+    flex: none;
+    align-items: flex-start;
+    gap: var(--e-2);
+  }
+
+  .mapa__rotulo {
+    display: inline-flex;
+    margin-top: calc(var(--y) - 0.8125rem);
+    scroll-snap-align: start;
+  }
+
+  .mapa__linea {
+    display: flex;
+    flex: none;
+  }
+
+  .mapa__linea::before,
+  .mapa__linea::after {
+    content: "";
+    position: absolute;
+    top: calc(var(--y) - var(--g) / 2);
+    left: calc(var(--ancho-estacion) / 2);
+    right: calc(var(--ancho-estacion) / 2);
+    height: var(--g);
+    border-radius: var(--g);
+    background: var(--color-linea);
+  }
+
+  /* Igual que en el mapa ancho: la línea base se aclara y el tramo hasta la estación
+     elegida queda en color pleno. */
+  .js .mapa__linea::before {
+    background: color-mix(in srgb, var(--color-linea) 34%, var(--papel));
+  }
+
+  .mapa__linea::after {
+    display: none;
+  }
+
+  .js .mapa__linea::after {
+    display: block;
+    transform-origin: left center;
+    scale: var(--recorrido, 0) 1;
+    transition: scale var(--t-viaje) var(--ease-in-out);
+  }
+
+  .mapa--teclado .mapa__linea::after {
+    transition: none;
+  }
+
+  /* Las estaciones van encima de la línea, como en el mapa ancho. */
+  .mapa__linea::before,
+  .mapa__linea::after {
+    z-index: 0;
+  }
+
+  .estacion {
+    z-index: 1;
+    width: var(--ancho-estacion);
+    scroll-snap-align: start;
+  }
+
+  /* El aire del final va en el ramal, no en la estación: así la línea termina en su centro. */
+  .mapa__ramal:last-child {
+    padding-right: var(--margen);
+  }
+}
+
+/* ---------- Andenes ---------- */
+
+.andenes {
+  margin-top: var(--e-4);
+}
+
+.anden {
+  display: grid;
+  gap: var(--e-6) var(--e-7);
+  padding-block: var(--e-6);
+  border-top: 1px solid var(--borde);
+}
+
+.js .anden {
+  border-top: 0;
+}
+
+.js .anden:not(.anden--activo) {
+  display: none;
+}
+
+/* El cambio de andén se anima solo después de la primera elección: la captura que
+   llega al cargar la página se ve nítida desde el primer cuadro. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .andenes--vivos .anden--activo {
+    transition:
+      opacity var(--t-cambio) var(--ease-out),
+      filter var(--t-cambio) var(--ease-out),
+      translate var(--t-cambio) var(--ease-out);
+
+    @starting-style {
+      opacity: 0;
+      filter: blur(3px);
+      translate: 0 6px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .andenes--vivos .anden--activo {
+    transition: opacity var(--t-cambio) ease;
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+}
+
+.anden__captura {
+  align-self: start;
+  overflow: hidden;
+  border: 1.5px solid var(--tinta);
+  border-radius: var(--radio);
+  background: var(--papel-2);
+  aspect-ratio: 16 / 10;
+}
+
+.anden__captura--vacia {
+  display: grid;
+  place-items: center;
+  padding: var(--e-5);
+  border-style: dashed;
+  font-weight: 800;
+  font-size: var(--t-h3);
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--tinta-2);
+}
+
+.anden__captura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.anden__ficha {
+  display: grid;
+  align-content: start;
+  gap: var(--e-4);
+}
+
+.anden__cabeza {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e-2) var(--e-4);
+}
+
+.anden__titulo {
+  font-size: var(--t-h3);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.anden__resumen {
+  max-width: 46ch;
+  color: var(--tinta-2);
+}
+
+.anden__datos {
+  display: grid;
+  gap: var(--e-2);
+  font-weight: 650;
+}
+
+.anden__datos li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--e-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Cada dato lleva una marca de parada en el color de la línea. */
+.anden__datos li::before {
+  content: "";
+  flex: none;
+  width: 0.625rem;
+  height: 0.625rem;
+  translate: 0 -0.05em;
+  border-radius: 50%;
+  border: 2.5px solid var(--color-linea);
+}
+
+.anden--web {
+  --color-linea: var(--linea-web);
+}
+
+.anden--escritorio {
+  --color-linea: var(--linea-escritorio);
+}
+
+.anden__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-1) var(--e-4);
+  font-size: var(--t-chico);
+  font-weight: 600;
+  color: var(--tinta-2);
+}
+
+.anden__nota {
+  font-size: var(--t-chico);
+  color: var(--tinta-2);
+}
+
+.anden .acciones {
+  margin-top: var(--e-2);
+}
+
+.anden__pasos {
+  display: none;
+}
+
+.js .anden__pasos {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--e-4);
+  margin-top: var(--e-3);
+  padding-top: var(--e-4);
+  border-top: 1px solid var(--borde);
+}
+
+.anden__pasos a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  min-height: 2.75rem;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+
+.anden__pasos a:last-child {
+  text-align: right;
+}
+
+.anden__paso-etiqueta {
+  display: block;
+  font-weight: 500;
+  font-size: var(--t-chico);
+  color: var(--tinta-2);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .anden__pasos a:hover > span {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+  }
+}
+
+@media (min-width: 56rem) {
+  .anden {
+    grid-template-columns: 1.45fr 1fr;
+    padding-block: var(--e-5) 0;
+  }
+}
+
+/* ---------- Secciones ---------- */
+
+.seccion {
+  padding-block: var(--seccion);
+}
+
+.seccion__titulo {
+  font-size: var(--t-h2);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.seccion__texto {
+  max-width: 60ch;
+  margin-top: var(--e-4);
+  font-size: var(--t-entrada);
+  line-height: 1.5;
+  color: var(--tinta-2);
+}
+
+/* Servicios: tres rutas, cada una con su placa grande. */
+.servicios {
+  margin-top: var(--e-8);
+  border-top: 1px solid var(--borde);
+}
+
+.servicios__lista {
+  margin-top: var(--e-7);
+}
+
+.servicio {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--e-2) var(--e-5);
+  padding-block: var(--e-6);
+}
+
+.servicio + .servicio {
+  border-top: 1px solid var(--borde);
+}
+
+.ruta {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  padding-top: 0.12em;
+  border-radius: var(--radio);
+  font-weight: 800;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.ruta--web {
+  background: var(--linea-web);
+  color: var(--sobre-azul);
+}
+
+.ruta--escritorio {
+  background: var(--linea-escritorio);
+  color: var(--papel);
+}
+
+.ruta--mejora {
+  border: 3px solid var(--tinta);
+  color: var(--tinta);
+}
+
+.servicio__titulo {
+  font-size: var(--t-h3);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.servicio__texto {
+  max-width: 52ch;
+  color: var(--tinta-2);
+}
+
+.servicios__remoto {
+  margin-top: var(--e-5);
+  font-weight: 700;
+}
+
+@media (min-width: 56rem) {
+  .servicio {
+    grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: center;
+  }
+
+  .ruta {
+    grid-row: auto;
+    width: 4rem;
+    height: 4rem;
+    font-size: 2rem;
+  }
+}
+
+/* IA: una línea que se abre en tres vías y se vuelve a unir. */
+.ia {
+  background: var(--papel-2);
+}
+
+.esquema {
+  position: relative;
+  margin-top: var(--e-7);
+}
+
+.esquema__dibujo {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.esquema__dibujo path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.esquema__tronco {
+  stroke: var(--tinta);
+  stroke-width: 12;
+}
+
+.esquema__via {
+  stroke: var(--linea-web);
+  stroke-width: 9;
+}
+
+.esquema__parada {
+  fill: var(--papel-2);
+  stroke: var(--tinta);
+  stroke-width: 7;
+}
+
+.esquema__cruce {
+  fill: var(--papel-2);
+  stroke: var(--tinta);
+  stroke-width: 6;
+}
+
+.esquema__pasos {
+  font-weight: 700;
+}
+
+.esquema__paso {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+}
+
+.esquema__paso--via {
+  display: grid;
+  justify-items: center;
+  gap: var(--e-1);
+  translate: -50% -50%;
+  text-align: center;
+}
+
+.esquema__paso--via .placa {
+  font-size: 0.8125rem;
+}
+
+.esquema__agente {
+  padding: 0 var(--e-2);
+  background: var(--papel-2);
+  font-size: var(--t-chico);
+  font-weight: 600;
+  color: var(--tinta-2);
+}
+
+/* Las vías se dibujan cuando el esquema entra en pantalla. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .esquema__dibujo path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  .js .esquema--visible .esquema__dibujo path {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 700ms var(--ease-out);
+  }
+
+  .js .esquema--visible .esquema__via {
+    transition-delay: 280ms;
+    transition-duration: 900ms;
+  }
+
+  .js .esquema--visible .esquema__tronco:last-of-type {
+    transition-delay: 980ms;
+  }
+}
+
+@media (min-width: 48rem) {
+  .esquema__dibujo--alto {
+    display: none;
+  }
+
+  .esquema__paso--inicio,
+  .esquema__paso--fin {
+    width: 12rem;
+    translate: -50% 0;
+    text-align: center;
+  }
+
+  .esquema__paso--inicio {
+    --x: 8%;
+    --y: 63%;
+  }
+
+  .esquema__paso--fin {
+    --x: 92%;
+    --y: 63%;
+  }
+
+  .esquema__paso--codigo {
+    --x: 50%;
+    --y: 18.75%;
+  }
+
+  .esquema__paso--pruebas {
+    --x: 50%;
+    --y: 50%;
+  }
+
+  .esquema__paso--revision {
+    --x: 50%;
+    --y: 81.25%;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .esquema {
+    max-width: 22rem;
+    margin-inline: auto;
+  }
+
+  .esquema__dibujo--ancho {
+    display: none;
+  }
+
+  .esquema__paso--inicio,
+  .esquema__paso--fin {
+    left: 58%;
+    max-width: 9.5rem;
+    translate: 0 -50%;
+  }
+
+  .esquema__paso--inicio {
+    --y: 4.65%;
+  }
+
+  .esquema__paso--fin {
+    --y: 95.35%;
+  }
+
+  .esquema__paso--codigo {
+    --x: 18.75%;
+    --y: 50%;
+  }
+
+  .esquema__paso--pruebas {
+    --x: 50%;
+    --y: 50%;
+  }
+
+  .esquema__paso--revision {
+    --x: 81.25%;
+    --y: 50%;
+  }
+
+  .esquema__agente {
+    display: none;
+  }
+}
+
+.principios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-3) var(--e-6);
+  margin-top: var(--e-7);
+  padding-top: var(--e-5);
+  border-top: 1px solid var(--borde);
+  font-weight: 700;
+}
+
+.principios li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+}
+
+.principios .icono {
+  color: var(--azul-texto);
+}
+
+/* Lo que sé hacer */
+.saber__rejilla {
+  display: grid;
+  gap: var(--e-6) var(--e-7);
+  margin-top: var(--e-7);
+}
+
+.saber__grupo {
+  display: grid;
+  gap: var(--e-2);
+  align-content: start;
+}
+
+.saber__titulo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.saber__grupo p {
+  max-width: 40ch;
+  color: var(--tinta-2);
+}
+
+@media (min-width: 40rem) {
+  .saber__rejilla {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .saber__rejilla {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Formación: un tramo hecho y otro que sigue en construcción. */
+.formacion {
+  margin-top: var(--e-8);
+  padding-top: var(--e-6);
+  border-top: 1px solid var(--borde);
+}
+
+.formacion__titulo {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.formacion__linea {
+  position: relative;
+  display: grid;
+  gap: var(--e-6);
+  margin-top: var(--e-6);
+}
+
+.formacion__parada {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.75rem 1fr;
+  column-gap: var(--e-4);
+}
+
+.formacion__parada > :not(.formacion__punto) {
+  grid-column: 2;
+}
+
+.formacion__punto {
+  grid-row: span 3;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.1rem;
+  border-radius: 50%;
+  border: 5px solid var(--tinta);
+  background: var(--papel);
+}
+
+.formacion__parada--hecha .formacion__punto {
+  background: var(--tinta);
+}
+
+.formacion__nombre {
+  font-weight: 800;
+  font-size: 1.125rem;
+}
+
+.formacion__lugar {
+  color: var(--tinta-2);
+}
+
+.formacion__estado {
+  font-size: var(--t-placa);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--tinta-2);
+}
+
+/* Línea vertical en celular: llena hasta el SENA, punteada hacia la universidad. */
+.formacion__linea::before {
+  content: "";
+  position: absolute;
+  left: calc(0.75rem - 3px);
+  top: 1rem;
+  bottom: 3.5rem;
+  width: 6px;
+  background: linear-gradient(var(--tinta) 0 50%, transparent 50%) 0 0 / 6px 14px repeat-y;
+}
+
+@media (min-width: 48rem) {
+  .formacion__linea {
+    grid-template-columns: repeat(2, minmax(0, 18rem));
+    gap: var(--e-6);
+  }
+
+  /* En pantallas anchas la parada va arriba y el texto debajo, como en un mapa. */
+  .formacion__parada {
+    grid-template-columns: 1fr;
+    row-gap: var(--e-1);
+  }
+
+  .formacion__parada > :not(.formacion__punto) {
+    grid-column: 1;
+  }
+
+  .formacion__punto {
+    grid-row: auto;
+    margin-bottom: var(--e-3);
+  }
+
+  .formacion__linea::before {
+    left: 0.75rem;
+    right: auto;
+    top: calc(0.85rem - 3px);
+    bottom: auto;
+    width: calc(18rem + var(--e-6));
+    height: 6px;
+    background: linear-gradient(90deg, var(--tinta) 0 50%, transparent 50%) 0 0 / 14px 6px repeat-x;
+  }
+}
+
+/* ---------- Contacto: el final de la línea, en azul pleno ---------- */
+
+.contacto {
+  --azul-oscuro: var(--azul);
+  padding-block: var(--seccion);
+  background: var(--azul);
+  color: var(--sobre-azul);
+}
+
+.contacto ::selection {
+  background: var(--sobre-azul);
+  color: var(--azul);
+}
+
+.contacto :focus-visible {
+  outline-color: var(--sobre-azul);
+}
+
+.contacto__in {
+  display: grid;
+  gap: var(--e-5);
+}
+
+/* Quién responde: la foto va en una placa con borde, como un carné de la línea. */
+.contacto__firma {
+  display: flex;
+  align-items: center;
+  gap: var(--e-4);
+  margin-bottom: var(--e-2);
+}
+
+.contacto__firma img {
+  flex: none;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 3px solid var(--sobre-azul);
+  border-radius: var(--radio);
+  background: var(--sobre-azul);
+  object-fit: cover;
+}
+
+.contacto__firma p {
+  display: grid;
+  font-size: var(--t-chico);
+  line-height: 1.4;
+}
+
+.contacto__firma strong {
+  font-size: 1.0625rem;
+  font-weight: 800;
+}
+
+.contacto__titulo {
+  font-size: var(--t-h2);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.contacto__texto {
+  max-width: 52ch;
+  font-size: var(--t-entrada);
+  line-height: 1.5;
+}
+
+.contacto__correo {
+  justify-self: start;
+  max-width: 100%;
+  margin-block: var(--e-4);
+  font-size: clamp(1.5rem, 0.6rem + 4.6vw, 4.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.16em;
+}
+
+/* Copiar: el ícono de copiar se funde en una marca de listo. */
+.copiar__iconos {
+  display: grid;
+}
+
+.copiar__iconos .icono {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--t-cambio) var(--ease-out),
+    scale var(--t-cambio) var(--ease-out),
+    filter var(--t-cambio) var(--ease-out);
+}
+
+.copiar__iconos .icono:last-child,
+[data-copiado] .copiar__iconos .icono:first-child {
+  opacity: 0;
+  scale: 0.8;
+  filter: blur(2px);
+}
+
+[data-copiado] .copiar__iconos .icono:last-child {
+  opacity: 1;
+  scale: 1;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copiar__iconos .icono {
+    scale: 1 !important;
+    filter: none !important;
+  }
+}
+
+/* En celular las acciones de la portada y de contacto van una debajo de otra,
+   todas del mismo ancho. */
+@media (max-width: 39.99rem) {
+  .portada__lado .acciones,
+  .contacto .acciones {
+    display: grid;
+  }
+
+  .portada__lado .boton,
+  .contacto .boton {
+    width: 100%;
+  }
+}
+
+.contacto__estado {
+  min-height: 1.5em;
+  font-weight: 700;
+}
+
+/* ---------- Pie ---------- */
+
+.pie {
+  padding-block: var(--e-6) calc(var(--e-6) + env(safe-area-inset-bottom, 0px));
+  font-size: var(--t-chico);
+  color: var(--tinta-2);
+}
+
+.pie__fila {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--e-3) var(--e-6);
+}
+
+.pie a {
+  color: var(--tinta);
+  font-weight: 700;
+}
+
+/* ---------- Movimiento reducido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .mapa__recorrido {
+    transition: none !important;
+  }
+}

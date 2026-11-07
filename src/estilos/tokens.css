@@ -1,0 +1,75 @@
+/* Tokens del portafolio: señalética de transporte.
+   Papel blanco frío, tinta casi negra y un azul cobalto que es la línea Web.
+   La línea Escritorio usa la tinta. No hay otros colores. */
+
+:root {
+  /* Color */
+  --papel: #f4f6f8;
+  --papel-2: #e7ebf0;
+  --tinta: #121518;
+  --tinta-2: #434a51;
+  --azul: #1f4fd1;
+  --azul-texto: #1a43b5;
+  --sobre-azul: #ffffff;
+  --borde: color-mix(in srgb, var(--tinta) 16%, transparent);
+  --borde-fuerte: color-mix(in srgb, var(--tinta) 72%, transparent);
+  --cabecera: color-mix(in srgb, var(--papel) 82%, transparent);
+  --foco: var(--azul);
+
+  --linea-web: var(--azul);
+  --linea-escritorio: var(--tinta);
+
+  /* Tipografía: Overpass nace de la letra de las señales de carretera. */
+  --letra: "Overpass Variable", "Overpass", system-ui, sans-serif;
+
+  --t-nombre: clamp(2.75rem, 1.4rem + 4.4vw, 5.25rem);
+  --t-h2: clamp(1.875rem, 1.35rem + 1.9vw, 2.875rem);
+  --t-h3: clamp(1.5rem, 1.25rem + 0.9vw, 2rem);
+  --t-entrada: clamp(1.125rem, 1.02rem + 0.35vw, 1.3125rem);
+  --t-cuerpo: 1.0625rem;
+  --t-chico: 0.875rem;
+  --t-placa: 0.8125rem;
+
+  /* Espacio, en pasos de 4 px */
+  --e-1: 0.25rem;
+  --e-2: 0.5rem;
+  --e-3: 0.75rem;
+  --e-4: 1rem;
+  --e-5: 1.5rem;
+  --e-6: 2rem;
+  --e-7: 3rem;
+  --e-8: 4rem;
+  --e-9: 6rem;
+  --seccion: clamp(4.5rem, 3rem + 6vw, 8rem);
+  --margen: clamp(1rem, 0.4rem + 2.6vw, 2.5rem);
+  --ancho: 76rem;
+
+  /* Forma: placas esmaltadas de esquina mínima; los puntos de estación son círculos. */
+  --radio: 3px;
+  --grosor-linea: 10px;
+
+  /* Movimiento */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --t-presion: 140ms;
+  --t-cambio: 220ms;
+  --t-viaje: 420ms;
+  --t-trazo: 900ms;
+
+  /* Capas */
+  --z-cabecera: 10;
+  --z-saltar: 20;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papel: #0e1114;
+    --papel-2: #171b1f;
+    --tinta: #eef0ee;
+    --tinta-2: #a7afb6;
+    --azul: #6b8fff;
+    --azul-texto: #8eaaff;
+    --sobre-azul: #0b0e12;
+    --cabecera: color-mix(in srgb, var(--papel) 80%, transparent);
+  }
+}
